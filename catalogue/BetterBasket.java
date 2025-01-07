@@ -5,9 +5,10 @@ import java.util.Collections;
 
 /**
  * Write a description of class BetterBasket here.
+ * New branch
  * 
- * @author  Your Name 
- * @version 1.0
+ * @author  Arun
+ * @version 1.1
  */
 public class BetterBasket extends Basket implements Serializable
 {
