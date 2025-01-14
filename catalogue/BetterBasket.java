@@ -7,8 +7,8 @@ import java.util.Collections;
  * Write a description of class BetterBasket here.
  * New branch
  * 
- * @author  Arun
- * @version 1.4
+ * @author  Arun_Dray
+ * @version 1.1
  */
 public class BetterBasket extends Basket implements Serializable
 {
