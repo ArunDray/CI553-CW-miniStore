@@ -37,6 +37,9 @@ public class CustomerView implements Observer
   private Picture thePicture = new Picture(80,80);
   private StockReader theStock   = null;
   private CustomerController cont= null;
+  
+  private final JTextField searchBar = new JTextField();
+  private final JButton searchButton = new JButton("Search"); // Incorporating Search-Button feature
 
   /**
    * Construct the view

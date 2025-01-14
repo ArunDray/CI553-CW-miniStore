@@ -36,7 +36,6 @@ public class CustomerController
   {
     model.doClear();
   }
-
   
 }
 
