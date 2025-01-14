@@ -112,9 +112,14 @@ public class CashierModel extends Observable
         if ( stockBought )                      // Stock bought
         {                                       // T
           makeBasketIfReq();                    //  new Basket ?
+          
+          // DISCOUNT 15%
+          double originalPrice = theProduct.getPrice();	 // Creating discount
+          double discount = 0.15 * originalPrice; // 15% discount
+          double discountedPrice = originalPrice - discount; // discount
+          theProduct.setPrice(discountedPrice);
           theBasket.add( theProduct );          //  Add to bought
-          theAction = "Purchased " +            //    details
-                  theProduct.getDescription();  //
+          theAction = "Purchased " + theProduct.getDescription() + " (15% Discount Applied!";  // Message updated to display discount
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }
