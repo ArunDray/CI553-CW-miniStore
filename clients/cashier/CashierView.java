@@ -56,10 +56,10 @@ public class CashierView implements Observer
     }
     Container cp         = rpc.getContentPane();    		// Content Pane
     Container rootWindow = (Container) rpc;         		// Root Window
-    cp.setLayout(null);                            	 		// No layout manager
-    cp.setBackground(new Color(102, 102, 102)); 			// Setting a dark grey background
+    cp.setLayout(null);  									// No layout manager
     rootWindow.setSize( W, H );                     		// Size of Window
-    rootWindow.setLocation( x, y );
+    rootWindow.setLocation( x, y );                          	 		
+    cp.setBackground(new Color(102, 102, 102)); 			// Setting a dark grey background
     Font modernFont = new Font("Arial", Font.BOLD, 12); 	// Setting a more modern font
     pageTitle.setFont(modernFont);
     theAction.setFont(modernFont);

@@ -60,6 +60,7 @@ public class CustomerView implements Observer
     cp.setLayout(null);                             // No layout manager
     rootWindow.setSize( W, H );                     // Size of Window
     rootWindow.setLocation( x, y );
+    cp.setBackground(new Color(102, 102, 102)); 	// Setting a dark grey background
 
     Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
     
