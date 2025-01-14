@@ -54,12 +54,25 @@ public class CashierView implements Observer
     {
       System.out.println("Exception: " + e.getMessage() );
     }
-    Container cp         = rpc.getContentPane();    // Content Pane
-    Container rootWindow = (Container) rpc;         // Root Window
-    cp.setLayout(null);                             // No layout manager
-    cp.setBackground(new Color(102, 102, 102)); 	// Setting a dark grey background
-    rootWindow.setSize( W, H );                     // Size of Window
+    Container cp         = rpc.getContentPane();    		// Content Pane
+    Container rootWindow = (Container) rpc;         		// Root Window
+    cp.setLayout(null);                            	 		// No layout manager
+    cp.setBackground(new Color(102, 102, 102)); 			// Setting a dark grey background
+    rootWindow.setSize( W, H );                     		// Size of Window
     rootWindow.setLocation( x, y );
+    Font modernFont = new Font("Arial", Font.BOLD, 12); 	// Setting a more modern font
+    pageTitle.setFont(modernFont);
+    theAction.setFont(modernFont);
+    theBtCheck.setFont(modernFont);
+    theBtBuy.setFont(modernFont);
+    theBtBought.setFont(modernFont);
+    Color buttonColor = new Color(0, 123, 255); // Darker blue
+    theBtCheck.setBackground(buttonColor); 		// Background Button colour
+    theBtCheck.setForeground(Color.WHITE); 		// Foreground colour
+    theBtBuy.setBackground(buttonColor);
+    theBtBuy.setForeground(Color.WHITE);
+    theBtBought.setBackground(buttonColor);
+    theBtBought.setForeground(Color.WHITE);
 
     Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
 
