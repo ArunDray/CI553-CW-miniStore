@@ -28,7 +28,7 @@ public class CashierView implements Observer
   private final JTextField  theInput   = new JTextField();
   private final JTextArea   theOutput  = new JTextArea();
   private final JScrollPane theSP      = new JScrollPane();
-  private final JButton     theBtCheck = new JButton( CHECK );
+  private final JButton theBtCheck = new JButton("VERIFY"); // Changed text
   private final JButton     theBtBuy   = new JButton( BUY );
   private final JButton     theBtBought= new JButton( BOUGHT );
 
