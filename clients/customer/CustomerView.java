@@ -17,11 +17,22 @@ import java.util.Observer;
 
 public class CustomerView implements Observer
 {
-  class Name                              // Names of buttons
-  {
-    public static final String CHECK  = "Check";
-    public static final String CLEAR  = "Clear";
-  }
+
+	// Upgraded to Enum for better encapsulation of button names
+	enum ButtonName {
+	    CHECK("Check"), // Check button label
+	    CLEAR("Clear"); // Clear button label
+
+	    private final String label;
+
+	    ButtonName(String label) {
+	        this.label = label; // Constructor set the label
+	    }
+
+	    public String getLabel() {
+	        return label; // To access the label
+	    }
+	}
 
   private static final int H = 300;       // Height of window pixels
   private static final int W = 400;       // Width  of window pixels
@@ -31,8 +42,10 @@ public class CustomerView implements Observer
   private final JTextField  theInput   = new JTextField();
   private final JTextArea   theOutput  = new JTextArea();
   private final JScrollPane theSP      = new JScrollPane();
-  private final JButton     theBtCheck = new JButton( Name.CHECK );
-  private final JButton     theBtClear = new JButton( Name.CLEAR );
+
+  private final JButton theBtCheck = new JButton(ButtonName.CHECK.getLabel()); // buttons using ENUM values
+  private final JButton theBtClear = new JButton(ButtonName.CLEAR.getLabel());
+
 
   private Picture thePicture = new Picture(80,80);
   private StockReader theStock   = null;
