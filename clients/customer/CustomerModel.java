@@ -24,23 +24,23 @@ public class CustomerModel extends Observable
   private StockReader     theStock     = null;
   private OrderProcessing theOrder     = null;
   private ImageIcon       thePic       = null;
-
+  
   /*
    * Construct the model of the Customer
    * @param mf The factory to create the connection objects
    */
-  public CustomerModel(MiddleFactory mf)
-  {
-    try                                          // 
-    {  
-      theStock = mf.makeStockReader();           // Database access
-    } catch ( Exception e )
-    {
-      DEBUG.error("CustomerModel.constructor\n" +
-                  "Database not created?\n%s\n", e.getMessage() );
-    }
-    theBasket = makeBasket();                    // Initial Basket
-  }
+
+public CustomerModel(MiddleFactory mf) {  // improved error handling and user feedback with enhanced constructor 
+   try {
+       theStock = mf.makeStockReader(); // Attempt database access
+   } catch ( Exception e ) {
+       DEBUG.error("CustomerModel.constructor\n" +
+                   "Database not created?\n%s\n", e.getMessage());
+       JOptionPane.showMessageDialog(null, "Error connecting to database: " + e.getMessage(),
+                                     "Error: Database Error", JOptionPane.ERROR_MESSAGE); // New error message upon database access
+   }
+}
+
   
   /**
    * return the Basket of products
