@@ -16,7 +16,7 @@ import java.util.Locale;
 public class Basket extends ArrayList<Product> implements Serializable
 {
   private static final long serialVersionUID = 1L; // serialVersionUD is now long type improving readability
-  private int    theOrderNum = 0;          // Order number
+  private int    OrderNum = 0;          // Modernised variables
   
   /**
    * Constructor for a basket which is
@@ -24,7 +24,7 @@ public class Basket extends ArrayList<Product> implements Serializable
    */
   public Basket()
   {
-    theOrderNum  = 0;
+    OrderNum  = 0;
   }
   
   /**
@@ -34,7 +34,7 @@ public class Basket extends ArrayList<Product> implements Serializable
    */
   public void setOrderNum( int anOrderNum )
   {
-    theOrderNum = anOrderNum;
+    OrderNum = anOrderNum;
   }
 
   /**
@@ -43,7 +43,7 @@ public class Basket extends ArrayList<Product> implements Serializable
    */
   public int getOrderNum()
   {
-    return theOrderNum;
+    return OrderNum;
   }
   
   /**
@@ -71,8 +71,8 @@ public class Basket extends ArrayList<Product> implements Serializable
     Formatter     fr = new Formatter(sb, uk);
     String csign = (Currency.getInstance( uk )).getSymbol();
     double total = 0.00;
-    if ( theOrderNum != 0 )
-      fr.format( "Order number: %03d\n", theOrderNum );
+    if ( OrderNum != 0 )
+      fr.format( "Product order number: %03d\n", OrderNum );
       
     if ( this.size() > 0 )
     {
