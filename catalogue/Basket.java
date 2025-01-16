@@ -15,7 +15,7 @@ import java.util.Locale;
  */
 public class Basket extends ArrayList<Product> implements Serializable
 {
-  private static final long serialVersionUID = 1;
+  private static final long serialVersionUID = 1L; // serialVersionUD is now long type improving readability
   private int    theOrderNum = 0;          // Order number
   
   /**
