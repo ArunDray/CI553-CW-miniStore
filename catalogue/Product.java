@@ -9,13 +9,14 @@ import java.io.Serializable;
  * @version 2.0
  */
 
+// Modernised Variables
 public class Product implements Serializable
 {
   private static final long serialVersionUID = 20092506;
-  private String theProductNum;       // Product number
-  private String theDescription;      // Description of product
-  private double thePrice;            // Price of product
-  private int    theQuantity;         // Quantity involved
+  private String ProductNum;       // Product number
+  private String Description;      // Description of product
+  private double Price;            // Price of product
+  private int    Quantity;         // Quantity involved
 
   /**
    * Construct a product details
@@ -27,35 +28,35 @@ public class Product implements Serializable
   public Product( String aProductNum, String aDescription,
                   double aPrice, int aQuantity )
   {
-    theProductNum  = aProductNum;     // Product number
-    theDescription = aDescription;    // Description of product
-    thePrice       = aPrice;          // Price of product
-    theQuantity    = aQuantity;       // Quantity involved
+    ProductNum  = aProductNum;     // Product number
+    Description = aDescription;    // Description of product
+    Price       = aPrice;          // Price of product
+    Quantity    = aQuantity;       // Quantity involved
   }
   
-  public String getProductNum()  { return theProductNum; }
-  public String getDescription() { return theDescription; }
-  public double getPrice()       { return thePrice; }
-  public int    getQuantity()    { return theQuantity; }
+  public String getProductNum()  { return ProductNum; }
+  public String getDescription() { return Description; }
+  public double getPrice()       { return Price; }
+  public int    getQuantity()    { return Quantity; }
   
   public void setProductNum( String aProductNum )
   { 
-    theProductNum = aProductNum;
+    ProductNum = aProductNum;
   }
   
   public void setDescription( String aDescription )
   { 
-    theDescription = aDescription;
+    Description = aDescription;
   }
   
   public void setPrice( double aPrice )
   { 
-    thePrice = aPrice;
+    Price = aPrice;
   }
   
   public void setQuantity( int aQuantity )
   { 
-    theQuantity = aQuantity;
+    Quantity = aQuantity;
   }
 
 }
