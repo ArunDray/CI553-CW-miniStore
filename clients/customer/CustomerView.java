@@ -38,7 +38,7 @@ public class CustomerView implements Observer {
         frame.setSize(width > 0 ? width : W, height > 0 ? height : H); // Use provided dimensions or defaults
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Color consistentGrey = new Color(169, 169, 169); // Consistent grey colour for CustomerView
+        Color consistentGrey = new Color(102, 102, 102); // Updated grey colour to match CustomerClient screen
         Color buttonGrey = new Color(96, 96, 96); // Button grey theme
 
         JPanel panel = new JPanel();
@@ -62,7 +62,7 @@ public class CustomerView implements Observer {
                 if (e.getClickCount() == 1) { // Single click on an item
                     String selectedItem = productList.getSelectedValue();
                     if (selectedItem != null) {
-                        showStockNotification(selectedItem);
+                        showProductInStockMessage(selectedItem);
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class CustomerView implements Observer {
         bottomPanel.add(guideButton); // Added guide button to the bottom panel
         bottomPanel.setBackground(consistentGrey); // Set bottom panel background grey
 
-        // Apply button colors
+        // Apply button colours
         checkButton.setBackground(buttonGrey);
         checkButton.setForeground(Color.WHITE);
         clearButton.setBackground(buttonGrey);
@@ -176,8 +176,8 @@ public class CustomerView implements Observer {
                 "Catalogue Guide", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void showStockNotification(String product) {
-        JOptionPane.showMessageDialog(null, "Product In Stock:\n" + product, "Stock Notification", JOptionPane.INFORMATION_MESSAGE);
+    private void showProductInStockMessage(String product) {
+        JOptionPane.showMessageDialog(null, "Product In Stock:\n" + product + "\nPlease continue to Cashier Client to complete purchase.", "Stock Notification", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void showOutOfStockNotification(String query) {
@@ -186,7 +186,6 @@ public class CustomerView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        // Update logic here (if needed in the future)
     }
 
     public static void main(String[] args) {
@@ -198,6 +197,5 @@ public class CustomerView implements Observer {
     }
 
     public void setController(CustomerController controller) {
-        // Storing the controller reference if needed for later use
     }
 }
