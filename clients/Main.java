@@ -28,6 +28,9 @@ import java.awt.*;
 public class Main {
 
     public static void main(String args[]) {
+        // Set the hover effect for buttons to a dark grey
+        UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour for hover for ALL the GUI buttons when user holds on button it will appear grey
+
         new Main().begin();
     }
 
@@ -60,7 +63,6 @@ public class Main {
         model.addObserver(view);       // Add observer to the model
         window.setVisible(true);       // Start GUI
     }
-
 
     /**
      * Starts the Cashier client GUI

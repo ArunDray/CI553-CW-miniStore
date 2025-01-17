@@ -66,7 +66,7 @@ public class CashierView implements Observer
     theBtCheck.setFont(modernFont);
     theBtBuy.setFont(modernFont);
     theBtBought.setFont(modernFont);
-    Color buttonColor = new Color(0, 123, 255); // Darker blue
+    Color buttonColor = new Color(102, 102, 102); // Setting buttons to same colour as background
     theBtCheck.setBackground(buttonColor); 		// Background Button colour
     theBtCheck.setForeground(Color.WHITE); 		// Foreground colour
     theBtBuy.setBackground(buttonColor);

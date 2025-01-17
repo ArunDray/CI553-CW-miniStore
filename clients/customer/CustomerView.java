@@ -21,7 +21,7 @@ public class CustomerView implements Observer {
     private static final int H = 400;       // Updated height of window pixels
     private static final int W = 600;       // Updated width of window pixels
 
-    private final JLabel pageTitle = new JLabel("Customer View");
+    private final JLabel pageTitle = new JLabel("Customer View:");
     private final JTextField searchBar = new JTextField(20); // New search bar
     private final JButton searchButton = new JButton("Search"); // New search button
     private final JLabel feedbackLabel = new JLabel(); // Feedback label
@@ -37,6 +37,7 @@ public class CustomerView implements Observer {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.GRAY); // Sets background colour to grey
 
         // Top section with title and search
         JPanel topPanel = new JPanel(new FlowLayout());
@@ -44,6 +45,7 @@ public class CustomerView implements Observer {
         topPanel.add(new JLabel("Search: "));
         topPanel.add(searchBar);
         topPanel.add(searchButton);
+        topPanel.setBackground(Color.GRAY); // Set top panel background to grey
 
         // Center section with product list
         productModel = new DefaultListModel<>();
@@ -55,6 +57,7 @@ public class CustomerView implements Observer {
         bottomPanel.add(checkButton);
         bottomPanel.add(clearButton);
         bottomPanel.add(feedbackLabel);
+        bottomPanel.setBackground(Color.GRAY); // Set bottom panel background to grey
 
         // Adding panels to the frame
         panel.add(topPanel, BorderLayout.NORTH);
@@ -79,7 +82,6 @@ public class CustomerView implements Observer {
         frame.setVisible(true); // Display the frame
     }
 
-
     private void filterProducts() {
         String query = searchBar.getText().toLowerCase();
         productModel.clear();
@@ -101,20 +103,18 @@ public class CustomerView implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-    	
+        
     }
 
     public static void main(String[] args) {
         new CustomerView();
     }
-    
+
     public CustomerView() {
         this(new JFrame(), new LocalMiddleFactory(), 600, 400);
     }
-    
+
     public void setController(CustomerController controller) {
         // Storing the controller reference if needed for later use
     }
-
-
 }
