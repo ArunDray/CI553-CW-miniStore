@@ -3,148 +3,118 @@ package clients.customer;
 import catalogue.Basket;
 import catalogue.BetterBasket;
 import clients.Picture;
+import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
 import middle.StockReader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Implements the Customer view.
- */
+public class CustomerView implements Observer {
 
-public class CustomerView implements Observer
-{
+    private static final int H = 400;       // Updated height of window pixels
+    private static final int W = 600;       // Updated width of window pixels
 
-	// Upgraded to Enum for better encapsulation of button names
-	enum ButtonName {
-	    CHECK("Check"), // Check button label
-	    CLEAR("Clear"); // Clear button label
+    private final JLabel pageTitle = new JLabel("Customer View");
+    private final JTextField searchBar = new JTextField(20); // New search bar
+    private final JButton searchButton = new JButton("Search"); // New search button
+    private final JLabel feedbackLabel = new JLabel(); // Feedback label
+    private final JButton checkButton = new JButton("Check");
+    private final JButton clearButton = new JButton("Clear");
 
-	    private final String label;
+    private JList<String> productList; // Product list to display items
+    private DefaultListModel<String> productModel; // Data model for the list
 
-	    ButtonName(String label) {
-	        this.label = label; // Constructor set the label
-	    }
+    public CustomerView(JFrame frame, MiddleFactory mf, int width, int height) {
+        frame.setSize(width > 0 ? width : W, height > 0 ? height : H); // Use provided dimensions or defaults
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	    public String getLabel() {
-	        return label; // To access the label
-	    }
-	}
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
-  private static final int H = 300;       // Height of window pixels
-  private static final int W = 400;       // Width  of window pixels
+        // Top section with title and search
+        JPanel topPanel = new JPanel(new FlowLayout());
+        topPanel.add(pageTitle);
+        topPanel.add(new JLabel("Search: "));
+        topPanel.add(searchBar);
+        topPanel.add(searchButton);
 
-  private final JLabel      pageTitle  = new JLabel();
-  private final JLabel      theAction  = new JLabel();
-  private final JTextField  theInput   = new JTextField();
-  private final JTextArea   theOutput  = new JTextArea();
-  private final JScrollPane theSP      = new JScrollPane();
+        // Center section with product list
+        productModel = new DefaultListModel<>();
+        productList = new JList<>(productModel);
+        JScrollPane scrollPane = new JScrollPane(productList);
 
-  private final JButton theBtCheck = new JButton(ButtonName.CHECK.getLabel()); // buttons using ENUM values
-  private final JButton theBtClear = new JButton(ButtonName.CLEAR.getLabel());
+        // Bottom section with buttons and feedback
+        JPanel bottomPanel = new JPanel(new FlowLayout());
+        bottomPanel.add(checkButton);
+        bottomPanel.add(clearButton);
+        bottomPanel.add(feedbackLabel);
 
+        // Adding panels to the frame
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
 
-  private Picture thePicture = new Picture(80,80);
-  private StockReader theStock   = null;
-  private CustomerController cont= null;
-  
+        frame.add(panel);
 
+        // Add listeners
+        searchButton.addActionListener(e -> filterProducts());
+        searchBar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                filterProducts();
+            }
+        });
+        clearButton.addActionListener(e -> {
+            productModel.clear();
+            feedbackLabel.setText("Cleared product list.");
+        });
 
-  /**
-   * Construct the view
-   * @param rpc   Window in which to construct
-   * @param mf    Factor to deliver order and stock objects
-   * @param x     x-cordinate of position of window on screen 
-   * @param y     y-cordinate of position of window on screen  
-   */
-  
-  public CustomerView( RootPaneContainer rpc, MiddleFactory mf, int x, int y )
-  {
-    try                                             // 
-    {      
-      theStock  = mf.makeStockReader();             // Database Access
-    } catch ( Exception e )
-    {
-      System.out.println("Exception: " + e.getMessage() );
+        frame.setVisible(true); // Display the frame
     }
-    Container cp         = rpc.getContentPane();    // Content Pane
-    Container rootWindow = (Container) rpc;         // Root Window
-    cp.setLayout(null);                             // No layout manager
-    rootWindow.setSize( W, H );                     // Size of Window
-    rootWindow.setLocation( x, y );
-    cp.setBackground(new Color(102, 102, 102)); 	// Setting a dark grey background
 
-    Font f = new Font("Monospaced",Font.PLAIN,12);  // Font f is
-    
-    pageTitle.setBounds( 110, 0 , 270, 20 );       
-    pageTitle.setText( "Search products" );                        
-    cp.add( pageTitle );
 
-    theBtCheck.setBounds( 16, 25+60*0, 80, 40 );    // Check button
-    theBtCheck.addActionListener(                   // Call back code
-      e -> cont.doCheck( theInput.getText() ) );
-    cp.add( theBtCheck );                           //  Add to canvas
+    private void filterProducts() {
+        String query = searchBar.getText().toLowerCase();
+        productModel.clear();
+        if (query.isEmpty()) {
+            feedbackLabel.setText("Enter a search term.");
+            return;
+        }
+        // Items will appear as displayed below in search bar
+        if ("0001".contains(query)) productModel.addElement("40 inch LED TV - £228.65 (+15% OFF)");
+        if ("0002".contains(query)) productModel.addElement("DAB Radio - £29.99 (+15% OFF)");
+        if ("0003".contains(query)) productModel.addElement("Toaster - £19.99 (+15% OFF)");
+        if ("0004".contains(query)) productModel.addElement("Watch - £29.99 (+15% OFF)");
+        if ("0005".contains(query)) productModel.addElement("Digital Camera - £89.99 (+15% OFF)");
+        if ("0006".contains(query)) productModel.addElement("MP3 Player - £7.99 (+15% OFF)");
+        if ("0007".contains(query)) productModel.addElement("USB Drive 32GB - £6.99 (+15% OFF)");
 
-    theBtClear.setBounds( 16, 25+60*1, 80, 40 );    // Clear button
-    theBtClear.addActionListener(                   // Call back code
-      e -> cont.doClear() );
-    cp.add( theBtClear );                           //  Add to canvas
-
-    theAction.setBounds( 110, 25 , 270, 20 );       // Message area
-    theAction.setText( " " );                       // blank
-    cp.add( theAction );                            //  Add to canvas
-
-    theInput.setBounds( 110, 50, 270, 40 );         // Product no area
-    theInput.setText("");                           // Blank
-    cp.add( theInput );                             //  Add to canvas
-    
-    theSP.setBounds( 110, 100, 270, 160 );          // Scrolling pane
-    theOutput.setText( "" );                        //  Blank
-    theOutput.setFont( f );                         //  Uses font  
-    cp.add( theSP );                                //  Add to canvas
-    theSP.getViewport().add( theOutput );           //  In TextArea
-
-    thePicture.setBounds( 16, 25+60*2, 80, 80 );   // Picture area
-    cp.add( thePicture );                           //  Add to canvas
-    thePicture.clear();
-    
-    rootWindow.setVisible( true );                  // Make visible);
-    theInput.requestFocus();                        // Focus is here
-  }
-
-   /**
-   * The controller object, used so that an interaction can be passed to the controller
-   * @param c   The controller
-   */
-
-  public void setController( CustomerController c )
-  {
-    cont = c;
-  }
-
-  /**
-   * Update the view
-   * @param modelC   The observed model
-   * @param arg      Specific args 
-   */
-   
-  public void update( Observable modelC, Object arg )
-  {
-    CustomerModel model  = (CustomerModel) modelC;
-    String        message = (String) arg;
-    theAction.setText( message );
-    ImageIcon image = model.getPicture();  // Image of product
-    if ( image == null )
-    {
-      thePicture.clear();                  // Clear picture
-    } else {
-      thePicture.set( image );             // Display picture
+        feedbackLabel.setText(productModel.isEmpty() ? "No products found! They could be out of stock." : "Products updated.");
     }
-    theOutput.setText( model.getBasket().getDetails() );
-    theInput.requestFocus();               // Focus is here
-  }
+
+    @Override
+    public void update(Observable o, Object arg) {
+    	
+    }
+
+    public static void main(String[] args) {
+        new CustomerView();
+    }
+    
+    public CustomerView() {
+        this(new JFrame(), new LocalMiddleFactory(), 600, 400);
+    }
+    
+    public void setController(CustomerController controller) {
+        // Storing the controller reference if needed for later use
+    }
+
 
 }
