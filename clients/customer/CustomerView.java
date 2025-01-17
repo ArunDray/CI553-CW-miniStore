@@ -1,11 +1,8 @@
 package clients.customer;
 
 import catalogue.Basket;
-import catalogue.BetterBasket;
-import clients.Picture;
 import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
-import middle.StockReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,9 +38,8 @@ public class CustomerView implements Observer {
         Color consistentGrey = new Color(102, 102, 102); // Updated grey colour to match CustomerClient screen
         Color buttonGrey = new Color(96, 96, 96); // Button grey theme
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBackground(consistentGrey); // Set the main background to grey
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(consistentGrey); // Set the main background to grey
 
         // Top section with title and search
         JPanel topPanel = new JPanel(new FlowLayout());
@@ -88,12 +84,12 @@ public class CustomerView implements Observer {
         searchButton.setBackground(buttonGrey);
         searchButton.setForeground(Color.WHITE);
 
-        // Added panels to the frame
-        panel.add(topPanel, BorderLayout.NORTH);
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(bottomPanel, BorderLayout.SOUTH);
+        // Add panels to the main panel
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
-        frame.add(panel);
+        frame.add(mainPanel);
 
         // Added listeners
         searchButton.addActionListener(e -> filterProducts());
