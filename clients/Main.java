@@ -60,15 +60,15 @@ public class Main {
         JFrame window = new JFrame();
         window.setTitle("Customer Client MVC");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension pos = PosOnScrn.getPos(); // 
+        Dimension pos = PosOnScrn.getPos(); 
 
         CustomerModel model = new CustomerModel(mlf);
-        CustomerView view = new CustomerView(window, mlf, pos.width, pos.height); // Updated to match new constructor
+        CustomerView view = new CustomerView(window, mlf, pos.width, pos.height); 
         CustomerController controller = new CustomerController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       // Add observer to the model
-        window.setVisible(true);       // Start GUI
+        model.addObserver(view);       
+        window.setVisible(true);       
     }
 
     /**
@@ -86,9 +86,9 @@ public class Main {
         CashierController controller = new CashierController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       // Add observer to the model
-        window.setVisible(true);       // Make window visible
-        model.askForUpdate();          // Initial display
+        model.addObserver(view);       
+        window.setVisible(true);       
+        model.askForUpdate();          
     }
 
     /**
@@ -106,8 +106,8 @@ public class Main {
         PackingController controller = new PackingController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       // Add observer to the model
-        window.setVisible(true);       // Make window visible
+        model.addObserver(view);       
+        window.setVisible(true);       
     }
 
     /**
@@ -123,9 +123,9 @@ public class Main {
         BackDoorModel model = new BackDoorModel(mlf);
         BackDoorView view = new BackDoorView(window, mlf, pos.width, pos.height);
         BackDoorController controller = new BackDoorController(model, view);
-        view.setController(controller);
+        view.setController(controller); 
 
-        model.addObserver(view);       // Add observer to the model
-        window.setVisible(true);       // Make window visible
+        model.addObserver(view); 
+        window.setVisible(true); 
     }
 }
