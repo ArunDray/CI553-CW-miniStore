@@ -24,17 +24,18 @@ import java.awt.*;
  * @author  Mike Smith University of Brighton
  * @version 2.0
  * @version year-2024
+ * Updated by Arun Dray
  */
 public class Main {
 
     public static void main(String args[]) {
-        // Set the hover effect for buttons to a dark grey
-        UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour for hover
+        // Set hoverr effect for buttons to a dark grey
+        UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour for hover when user clicks/holds on button
 
         // Set the button outline to dark grey
         UIManager.put("Button.border", BorderFactory.createLineBorder(new Color(96, 96, 96)));
 
-        // Set the background color for text fields (including search bars) to dark grey
+        // Set the background colour of search bar to grey
         UIManager.put("TextField.background", new Color(96, 96, 96));
         UIManager.put("TextField.foreground", Color.WHITE); // Ensure text is visible on dark background
 
