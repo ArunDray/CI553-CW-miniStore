@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,7 +38,8 @@ public class CustomerView implements Observer {
         frame.setSize(width > 0 ? width : W, height > 0 ? height : H); // Use provided dimensions or defaults
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Color consistentGrey = new Color(169, 169, 169); // Consistent grey colour for CustomerView.jav
+        Color consistentGrey = new Color(169, 169, 169); // Consistent grey colour for CustomerView
+        Color buttonGrey = new Color(96, 96, 96); // Button grey theme
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -53,7 +56,19 @@ public class CustomerView implements Observer {
         // Centre section with product list
         productModel = new DefaultListModel<>();
         productList = new JList<>(productModel);
+        productList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Single click on an item
+                    String selectedItem = productList.getSelectedValue();
+                    if (selectedItem != null) {
+                        showStockNotification(selectedItem);
+                    }
+                }
+            }
+        });
         JScrollPane scrollPane = new JScrollPane(productList);
+        scrollPane.getViewport().setBackground(consistentGrey); // Set background for the scrollable product list
 
         // Bottom section with buttons and feedback
         JPanel bottomPanel = new JPanel(new FlowLayout());
@@ -62,6 +77,16 @@ public class CustomerView implements Observer {
         bottomPanel.add(feedbackLabel);
         bottomPanel.add(guideButton); // Added guide button to the bottom panel
         bottomPanel.setBackground(consistentGrey); // Set bottom panel background grey
+
+        // Apply button colors
+        checkButton.setBackground(buttonGrey);
+        checkButton.setForeground(Color.WHITE);
+        clearButton.setBackground(buttonGrey);
+        clearButton.setForeground(Color.WHITE);
+        guideButton.setBackground(buttonGrey);
+        guideButton.setForeground(Color.WHITE);
+        searchButton.setBackground(buttonGrey);
+        searchButton.setForeground(Color.WHITE);
 
         // Added panels to the frame
         panel.add(topPanel, BorderLayout.NORTH);
@@ -91,6 +116,7 @@ public class CustomerView implements Observer {
             }
         });
 
+        frame.getContentPane().setBackground(consistentGrey); // Ensure the entire frame background is grey
         frame.setVisible(true); // Displaying the frame
     }
 
@@ -101,18 +127,44 @@ public class CustomerView implements Observer {
             feedbackLabel.setText("Enter a search term.");
             return;
         }
-        // Items will appear as displayed below in search bar
-        if ("0001".contains(query)) productModel.addElement("40 inch LED TV - £228.65 (+15% OFF)");
-        if ("0002".contains(query)) productModel.addElement("DAB Radio - £29.99 (+15% OFF)");
-        if ("0003".contains(query)) productModel.addElement("Toaster - £19.99 (+15% OFF)");
-        if ("0004".contains(query)) productModel.addElement("Watch - £29.99 (+15% OFF)");
-        if ("0005".contains(query)) productModel.addElement("Digital Camera - £89.99 (+15% OFF)");
-        if ("0006".contains(query)) productModel.addElement("MP3 Player - £7.99 (+15% OFF)");
-        if ("0007".contains(query)) productModel.addElement("USB Drive 32GB - £6.99 (+15% OFF)");
+        // Items will appear as displayed below in search bar along with new discounts applied
+        boolean found = false;
+        if ("0001".contains(query)) { 
+            productModel.addElement("40 inch LED TV - £228.65 (15% OFF)"); 
+            found = true; 
+        }
+        if ("0002".contains(query)) { 
+            productModel.addElement("DAB Radio - £29.99"); 
+            found = true; 
+        }
+        if ("0003".contains(query)) { 
+            productModel.addElement("Toaster - £19.99 (15% OFF)"); 
+            found = true; 
+        }
+        if ("0004".contains(query)) { 
+            productModel.addElement("Watch - £29.99 (15% OFF)"); 
+            found = true; 
+        }
+        if ("0005".contains(query)) { 
+            productModel.addElement("Digital Camera - £89.99"); 
+            found = true; 
+        }
+        if ("0006".contains(query)) { 
+            productModel.addElement("MP3 Player - £7.99"); 
+            found = true; 
+        }
+        if ("0007".contains(query)) { 
+            productModel.addElement("USB Drive 32GB - £6.99"); 
+            found = true; 
+        }
 
-        feedbackLabel.setText(productModel.isEmpty() ? "No products found! They could be out of stock." : "Products updated.");
+        if (!found) {
+            showOutOfStockNotification(query);
+        } else {
+            feedbackLabel.setText(productModel.isEmpty() ? "No products found! They could be out of stock." : "Products updated.");
+        }
     }
-    // message that will display in the guide text box
+
     private void showGuide() {
         JOptionPane.showMessageDialog(null, "How to use the catalogue:\n" +
                 "1. Use the search bar at the top to find products by code.\n" +
@@ -122,6 +174,14 @@ public class CustomerView implements Observer {
                 "4. Navigate to the Cashier Client screen and verify your item.\n" +
                 "5. Click on BUY then BUY/BOUGHT and our staff will pack your product!.", 
                 "Catalogue Guide", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showStockNotification(String product) {
+        JOptionPane.showMessageDialog(null, "Product In Stock:\n" + product, "Stock Notification", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showOutOfStockNotification(String query) {
+        JOptionPane.showMessageDialog(null, "The product code '" + query + "' is out of stock or does not exist.", "Out of Stock Notification", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override

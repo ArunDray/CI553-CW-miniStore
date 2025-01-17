@@ -5,6 +5,7 @@ import catalogue.Product;
 import debug.DEBUG;
 import middle.*;
 
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -112,14 +113,10 @@ public class CashierModel extends Observable
         if ( stockBought )                      // Stock bought
         {                                       // T
           makeBasketIfReq();                    //  new Basket ?
-          
-          // DISCOUNT 15%
-          double originalPrice = theProduct.getPrice();	 // Creating discount
-          double discount = 0.15 * originalPrice; // 15% discount
-          double discountedPrice = originalPrice - discount; // discount
+          double discountedPrice = calculateDiscountedPrice(theProduct.getProductNum(), theProduct.getPrice());
           theProduct.setPrice(discountedPrice);
           theBasket.add( theProduct );          //  Add to bought
-          theAction = "Purchased " + theProduct.getDescription() + " (15% Discount Applied!";  // Message updated to display discount
+          theAction = "Purchased " + theProduct.getDescription() + " (Discount Applied!)";  // Message updated to display discount
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }
@@ -133,7 +130,21 @@ public class CashierModel extends Observable
     theState = State.process;                   // All Done
     setChanged(); notifyObservers(theAction);
   }
-  
+
+  /**
+   * Calculate discounted price for specific products
+   * @param itemCode The product code
+   * @param price The original price
+   * @return The price after applying discounts
+   */
+  public double calculateDiscountedPrice(String itemCode, double price) {
+      // Apply discount only for specific items
+      if (itemCode.equals("0001") || itemCode.equals("0003") || itemCode.equals("0004")) {
+          return price * 0.85; // Apply 15% discount
+      }
+      return price; // No discount for other items
+  }
+
   /**
    * Customer pays for the contents of the basket
    */
