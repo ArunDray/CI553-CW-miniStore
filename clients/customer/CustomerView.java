@@ -21,7 +21,7 @@ public class CustomerView implements Observer {
     private static final int H = 400;       // Updated height of window pixels
     private static final int W = 600;       // Updated width of window pixels
 
-    private final JLabel pageTitle = new JLabel("Customer View:");
+    private final JLabel pageTitle = new JLabel("Search Product ID:");
     private final JTextField searchBar = new JTextField(20); // New search bar
     private final JButton searchButton = new JButton("Search"); // New search button
     private final JLabel feedbackLabel = new JLabel(); // Feedback label
@@ -42,7 +42,7 @@ public class CustomerView implements Observer {
         // Top section with title and search
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.add(pageTitle);
-        topPanel.add(new JLabel("Search: "));
+        topPanel.add(new JLabel(""));
         topPanel.add(searchBar);
         topPanel.add(searchButton);
         topPanel.setBackground(Color.GRAY); // Set top panel background to grey
@@ -98,7 +98,7 @@ public class CustomerView implements Observer {
         if ("0006".contains(query)) productModel.addElement("MP3 Player - £7.99 (+15% OFF)");
         if ("0007".contains(query)) productModel.addElement("USB Drive 32GB - £6.99 (+15% OFF)");
 
-        feedbackLabel.setText(productModel.isEmpty() ? "No products found! They could be out of stock." : "Products updated.");
+        feedbackLabel.setText(productModel.isEmpty() ? "No products found! They could be OUT OF STOCK." : "PRODUCTS IN STOCK.");
     }
 
     @Override

@@ -29,10 +29,14 @@ public class Main {
 
     public static void main(String args[]) {
         // Set the hover effect for buttons to a dark grey
-        UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour set for when user clicks / holds downn on the button
+        UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour for hover
 
-        // Set the button outline to dark grey colour on button
-        UIManager.put("Button.border", BorderFactory.createLineBorder(new Color(140, 140, 140)));
+        // Set the button outline to dark grey
+        UIManager.put("Button.border", BorderFactory.createLineBorder(new Color(96, 96, 96)));
+
+        // Set the background color for text fields (including search bars) to dark grey
+        UIManager.put("TextField.background", new Color(96, 96, 96));
+        UIManager.put("TextField.foreground", Color.WHITE); // Ensure text is visible on dark background
 
         new Main().begin();
     }
