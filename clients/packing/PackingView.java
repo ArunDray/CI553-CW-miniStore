@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Implements the Packing view.
@@ -77,11 +78,14 @@ public class PackingView implements Observer {
 
     /**
      * Displays a message confirming the order has been completed.
+     * Includes an estimated delivery time between 24-48 hours.
      */
     private void showOrderCompletionMessage() {
+        int deliveryTime = ThreadLocalRandom.current().nextInt(24, 49); // Random time between 24-48 hours
         JOptionPane.showMessageDialog(
                 null,
-                "Order has been successfully packed and is ready for delivery!", // Message to display
+                "Order has been successfully packed and is ready for delivery!\n" +
+                        "Estimated Delivery Time: " + deliveryTime + " hours",
                 "Order Complete", // Title of the message box
                 JOptionPane.INFORMATION_MESSAGE // Information message type
         );
