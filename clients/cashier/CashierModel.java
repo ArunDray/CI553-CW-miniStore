@@ -114,9 +114,13 @@ public class CashierModel extends Observable
         {                                       // T
           makeBasketIfReq();                    //  new Basket ?
           double discountedPrice = calculateDiscountedPrice(theProduct.getProductNum(), theProduct.getPrice());
+          if (discountedPrice < theProduct.getPrice()) {
+            theAction = "Purchased " + theProduct.getDescription() + " (Discount Applied!)";  // Message for discounted items
+          } else {
+            theAction = "Purchased " + theProduct.getDescription();  // Message for non-discounted items
+          }
           theProduct.setPrice(discountedPrice);
-          theBasket.add( theProduct );          //  Add to bought
-          theAction = "Purchased " + theProduct.getDescription() + " (Discount Applied!)";  // Message updated to display discount
+          theBasket.add(theProduct);           //  Add to bought
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }
