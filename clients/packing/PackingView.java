@@ -56,7 +56,11 @@ public class PackingView implements Observer {
         pageTitle.setText("Packing Bought Order");
         cp.add(pageTitle);
 
+        // Apply button styling
+        Color buttonGrey = new Color(96, 96, 96); // Button grey theme
         theBtPack.setBounds(16, 25 + 60 * 0, 80, 40);   // Check Button
+        theBtPack.setBackground(buttonGrey);
+        theBtPack.setForeground(Color.WHITE);
         theBtPack.addActionListener(                   // Call back code
                 e -> {
                     cont.doPacked();                   // Perform the packed action
@@ -81,7 +85,7 @@ public class PackingView implements Observer {
      * Includes an estimated delivery time between 24-48 hours.
      */
     private void showOrderCompletionMessage() {
-        int deliveryTime = ThreadLocalRandom.current().nextInt(24, 49); // Random time between 24-48 hours
+        int deliveryTime = ThreadLocalRandom.current().nextInt(24, 49); // Random time between 24-48 hours that appears when user/staff have packed order
         JOptionPane.showMessageDialog(
                 null,
                 "Order has been successfully packed and is ready for delivery!\n" +
