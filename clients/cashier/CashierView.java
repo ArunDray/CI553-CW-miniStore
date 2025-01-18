@@ -21,12 +21,40 @@ public class CashierView implements Observer {
 
     private final JLabel pageTitle = new JLabel();
     private final JLabel theAction = new JLabel();
-    private final JTextArea theOutput = new JTextArea();
+    private final JTextArea theOutput = new JTextArea(); // Text area for output
+    {
+        // Set dark grey background to match the surrounding area
+        theOutput.setBackground(new Color(64, 64, 64)); // Darker grey
+        // Set text colour to white for readability
+        theOutput.setForeground(Color.WHITE);
+        // Set border to match style
+        theOutput.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102), 1));
+    }
     private final JScrollPane theSP = new JScrollPane();
-    private final JButton theBtVerify = new JButton(VERIFY);
-    private final JButton theBtBuy = new JButton(BUY);
-    private final JButton theBtBought = new JButton(BOUGHT);
-    private final JButton theBtVerifiedMessage = new JButton("Product Verified and added to Basket"); // New button
+    private final JButton theBtVerify = new JButton(VERIFY); // Verify button
+    {
+        theBtVerify.setBackground(new Color(96, 96, 96)); // Dark grey button background
+        theBtVerify.setForeground(Color.WHITE); // White text for readability
+        theBtVerify.setFocusPainted(false); // Remove focus border
+    }
+    private final JButton theBtBuy = new JButton(BUY); // Buy button
+    {
+        theBtBuy.setBackground(new Color(96, 96, 96)); // Dark grey button background
+        theBtBuy.setForeground(Color.WHITE); // White text for readability
+        theBtBuy.setFocusPainted(false); // Remove focus border
+    }
+    private final JButton theBtBought = new JButton(BOUGHT); // Receipt button
+    {
+        theBtBought.setBackground(new Color(96, 96, 96)); // Dark grey button background
+        theBtBought.setForeground(Color.WHITE); // White text for readability
+        theBtBought.setFocusPainted(false); // Remove focus border
+    }
+    private final JButton theBtVerifiedMessage = new JButton("Product Verified and added to Basket"); // Feedback button
+    {
+        theBtVerifiedMessage.setBackground(new Color(96, 96, 96)); // Dark grey button background
+        theBtVerifiedMessage.setForeground(Color.WHITE); // White text for readability
+        theBtVerifiedMessage.setFocusPainted(false); // Remove focus border
+    } // New button
     private final JTextField productInputField = new JTextField(10); // Input field for product number
 
     private CashierController cont = null;
