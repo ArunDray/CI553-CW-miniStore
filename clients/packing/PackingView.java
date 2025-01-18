@@ -23,6 +23,7 @@ public class PackingView implements Observer {
     private final JButton theBtPack = new JButton("Packed");
 
     private PackingController cont = null;
+    private PackingModel model = null;
 
     /**
      * Construct the view.
@@ -78,20 +79,45 @@ public class PackingView implements Observer {
      * Displays a pop-up dialog after the order is packed.
      */
     private void showCompletionPopup() {
-        // Generate a random estimated delivery time between 12 and 72 hours
-        int estimatedDeliveryTime = (int) (Math.random() * 61) + 12; // 12 to 72 hours
+        if (model == null) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Error: Packing model is not available.",
+                "Model Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
-        // Display the pop-up with the updated message
-        JOptionPane.showMessageDialog(
-            null,
-            "Order Complete\nEstimated Delivery Time: " + estimatedDeliveryTime + " hours",
-            "Order Packed",
-            JOptionPane.INFORMATION_MESSAGE
-        );
+        Basket basket = model.getBasket();
+
+        if (basket != null && !basket.getDetails().isEmpty()) {
+            // Generate a random estimated delivery time between 12 and 72 hours
+            int estimatedDeliveryTime = (int) (Math.random() * 61) + 12; // 12 to 72 hours
+
+            // Display the pop-up with the updated message
+            JOptionPane.showMessageDialog(
+                null,
+                "Order Complete\nEstimated Delivery Time: " + estimatedDeliveryTime + " hours",
+                "Order Packed",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        } else {
+            // Display a message indicating no current orders
+            JOptionPane.showMessageDialog(
+                null,
+                "You have no current orders.",
+                "No Orders",
+                JOptionPane.WARNING_MESSAGE
+            );
+        }
     }
 
     public void setController(PackingController c) {
         cont = c;
+        if (c instanceof PackingController) {
+            model = c.getPackingModel(); 
+        }
     }
 
     @Override

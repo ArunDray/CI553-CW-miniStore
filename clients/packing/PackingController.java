@@ -1,33 +1,37 @@
 package clients.packing;
 
-import clients.packing.PackingModel;
-import clients.packing.PackingView;
 /**
  * The Packing Controller
  */
+public class PackingController {
+    private PackingModel model;
+    private PackingView view;
 
-public class PackingController 
-{
-  private PackingModel model = null;
-  private PackingView  view  = null;
-  /**
-   * Constructor
-   * @param model The model 
-   * @param view  The view from which the interaction came
-   */
-  public PackingController( PackingModel model, PackingView view )
-  {
-    this.view  = view;
-    this.model = model;
-  }
+    /**
+     * Constructor
+     *
+     * @param model The model
+     * @param view  The view from which the interaction came
+     */
+    public PackingController(PackingModel model, PackingView view) {
+        this.model = model;
+        this.view = view;
+        this.view.setController(this);
+    }
 
-  /**
-   * Picked interaction from view
-   */
-  public void doPacked()
-  {
-    model.doPacked();
-  }
-  
+    /**
+     * Returns the PackingModel instance associated with this controller.
+     *
+     * @return The PackingModel instance.
+     */
+    public PackingModel getPackingModel() {
+        return model;
+    }
+
+    /**
+     * Handles the packed action.
+     */
+    public void doPacked() {
+        model.doPacked();
+    }
 }
-
