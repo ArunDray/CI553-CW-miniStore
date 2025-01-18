@@ -14,6 +14,7 @@ import clients.packing.PackingModel;
 import clients.packing.PackingView;
 import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
+import utils.StyleHelper;
 
 import javax.swing.*;
 import java.awt.*;
