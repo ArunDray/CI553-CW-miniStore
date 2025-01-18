@@ -21,6 +21,7 @@ public class PackingView implements Observer {
     private final JTextArea theOutput = new JTextArea();
     private final JScrollPane theSP = new JScrollPane();
     private final JButton theBtPack = new JButton("Packed");
+    private final JLabel titleLabel = new JLabel("Checkout & Packing", SwingConstants.CENTER); // Title label
 
     private PackingController cont = null;
     private PackingModel model = null;
@@ -54,17 +55,22 @@ public class PackingView implements Observer {
 
         Font f = new Font("Segoe UI", Font.PLAIN, 14);  // Consistent font
 
-        theAction.setBounds(20, 20, 360, 20);           // Action feedback label
+        titleLabel.setBounds(20, 10, 360, 30);          // Title label placement
+        titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14)); // Bold font for the title
+        titleLabel.setForeground(Color.BLACK);         // White text for visibility
+        cp.add(titleLabel);
+
+        theAction.setBounds(20, 50, 360, 20);           // Action feedback label
         theAction.setForeground(Color.WHITE);          // White text
         cp.add(theAction);
 
-        theBtPack.setBounds(20, 60, 80, 40);            // Button alignment placement
+        theBtPack.setBounds(20, 90, 80, 40);            // Button alignment placement
         theBtPack.setBackground(new Color(96, 96, 96)); // Grey theme
         theBtPack.setForeground(Color.WHITE);          // White text
         theBtPack.addActionListener(e -> showCompletionPopup()); // Action listener for Packed button
         cp.add(theBtPack);
 
-        theSP.setBounds(110, 60, 270, 180);             // Scrolling pane
+        theSP.setBounds(110, 90, 270, 180);             // Scrolling pane
         theOutput.setText("");                          // Blank
         theOutput.setFont(f);                           // Consistent font
         theOutput.setBackground(new Color(69, 69, 69)); // Dark grey background for text area
@@ -116,7 +122,7 @@ public class PackingView implements Observer {
     public void setController(PackingController c) {
         cont = c;
         if (c instanceof PackingController) {
-            model = c.getPackingModel(); 
+            model = c.getPackingModel(); // Ensure model is set correctly
         }
     }
 
