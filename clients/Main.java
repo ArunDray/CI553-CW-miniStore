@@ -28,6 +28,8 @@ import java.awt.*;
 public class Main {
 
     public static void main(String args[]) {
+        // Display a welcome message pop-up
+        JOptionPane.showMessageDialog(null, "Welcome to the Mini-Store catalogue\n\nTo start shopping, please use the search bar. For a more detailed guide, please refer to the \"help guide\" \nsituated at the bottom right of the Customer Client interface.\n\nClick \"Okay\" to proceed to the main application.", "Welcome", JOptionPane.INFORMATION_MESSAGE);
         // Set the global font to Segoe UI
         setUIFont(new javax.swing.plaf.FontUIResource("Segoe UI", Font.PLAIN, 14));
 

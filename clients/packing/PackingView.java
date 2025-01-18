@@ -27,14 +27,6 @@ public class PackingView implements Observer {
     private PackingController cont = null;
     private PackingModel model = null;
 
-    /**
-     * Construct the view.
-     *
-     * @param rpc Window in which to construct
-     * @param mf  Factory to deliver order and stock objects
-     * @param x   x-coordinate of position of window on screen
-     * @param y   y-coordinate of position of window on screen
-     */
     public PackingView(RootPaneContainer rpc, MiddleFactory mf, int x, int y) {
         try {
             OrderProcessing theOrder = mf.makeOrderProcessing(); // Obtain order processing
@@ -77,7 +69,7 @@ public class PackingView implements Observer {
         theBtExit.addActionListener(e -> showExitConfirmation()); // Action listener for Exit button
         cp.add(theBtExit);
 
-        theSP.setBounds(110, 90, 270, 180);             // Scrolling pane
+        theSP.setBounds(110, 90, 260, 100);             // Updated scrolling pane for centring
         theOutput.setText("");                          // Blank
         theOutput.setFont(f);                           // Consistent font
         theOutput.setBackground(new Color(69, 69, 69)); // Dark grey background for text area
@@ -88,9 +80,6 @@ public class PackingView implements Observer {
         rootWindow.setVisible(true);                    // Make visible
     }
 
-    /**
-     * Displays a pop-up dialog after the order is packed.
-     */
     private void showCompletionPopup() {
         if (model == null) {
             JOptionPane.showMessageDialog(
@@ -105,10 +94,8 @@ public class PackingView implements Observer {
         Basket basket = model.getBasket();
 
         if (basket != null && !basket.getDetails().isEmpty()) {
-            // Generate a random estimated delivery time between 12 and 72 hours
             int estimatedDeliveryTime = (int) (Math.random() * 61) + 12; // 12 to 72 hours
 
-            // Display the pop-up with the updated message
             JOptionPane.showMessageDialog(
                 null,
                 "Order Complete\nEstimated Delivery Time: " + estimatedDeliveryTime + " hours",
@@ -116,7 +103,6 @@ public class PackingView implements Observer {
                 JOptionPane.INFORMATION_MESSAGE
             );
         } else {
-            // Display a message indicating no current orders
             JOptionPane.showMessageDialog(
                 null,
                 "You have no current orders.",
@@ -126,9 +112,6 @@ public class PackingView implements Observer {
         }
     }
 
-    /**
-     * Displays a confirmation dialog when the Exit button is clicked.
-     */
     private void showExitConfirmation() {
         int response = JOptionPane.showConfirmDialog(
             null,
