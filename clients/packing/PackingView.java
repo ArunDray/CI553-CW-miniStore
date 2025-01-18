@@ -57,7 +57,7 @@ public class PackingView implements Observer {
         theAction.setForeground(Color.WHITE);          // White text
         cp.add(theAction);
 
-        theBtPack.setBounds(20, 60, 80, 40);            // Button allignment placement
+        theBtPack.setBounds(20, 60, 80, 40);            // Button alignment placement
         theBtPack.setBackground(new Color(96, 96, 96)); // Grey theme
         theBtPack.setForeground(Color.WHITE);          // White text
         theBtPack.addActionListener(e -> showCompletionPopup()); // Action listener for Packed button
@@ -78,18 +78,16 @@ public class PackingView implements Observer {
      * Displays a pop-up dialog after the order is packed.
      */
     private void showCompletionPopup() {
-        int response = JOptionPane.showConfirmDialog(
-                null,
-                "Order Complete\nWould you like to exit the Catalogue or continue browsing more products?",
-                "Order Packed",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
+        // Generate a random estimated delivery time between 12 and 72 hours
+        int estimatedDeliveryTime = (int) (Math.random() * 61) + 12; // 12 to 72 hours
 
-        if (response == JOptionPane.YES_OPTION) {
-            System.exit(0); // Exit the application
-        }
-        // If "No" is selected, the message is ignored and the application continues running normally
+        // Display the pop-up with the updated message
+        JOptionPane.showMessageDialog(
+            null,
+            "Order Complete\nEstimated Delivery Time: " + estimatedDeliveryTime + " hours",
+            "Order Packed",
+            JOptionPane.INFORMATION_MESSAGE
+        );
     }
 
     public void setController(PackingController c) {
