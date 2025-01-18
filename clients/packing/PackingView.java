@@ -21,6 +21,7 @@ public class PackingView implements Observer {
     private final JTextArea theOutput = new JTextArea();
     private final JScrollPane theSP = new JScrollPane();
     private final JButton theBtPack = new JButton("Packed");
+    private final JButton theBtExit = new JButton("Exit"); // New Exit button
     private final JLabel titleLabel = new JLabel("Checkout & Packing", SwingConstants.CENTER); // Title label
 
     private PackingController cont = null;
@@ -70,6 +71,12 @@ public class PackingView implements Observer {
         theBtPack.addActionListener(e -> showCompletionPopup()); // Action listener for Packed button
         cp.add(theBtPack);
 
+        theBtExit.setBounds(20, 140, 80, 40);           // Exit button placement
+        theBtExit.setBackground(new Color(96, 96, 96)); // Grey theme
+        theBtExit.setForeground(Color.WHITE);          // White text
+        theBtExit.addActionListener(e -> showExitConfirmation()); // Action listener for Exit button
+        cp.add(theBtExit);
+
         theSP.setBounds(110, 90, 270, 180);             // Scrolling pane
         theOutput.setText("");                          // Blank
         theOutput.setFont(f);                           // Consistent font
@@ -116,6 +123,22 @@ public class PackingView implements Observer {
                 "No Orders",
                 JOptionPane.WARNING_MESSAGE
             );
+        }
+    }
+
+    /**
+     * Displays a confirmation dialog when the Exit button is clicked.
+     */
+    private void showExitConfirmation() {
+        int response = JOptionPane.showConfirmDialog(
+            null,
+            "Would you like to exit the Catalogue?",
+            "Exit Confirmation",
+            JOptionPane.YES_NO_OPTION
+        );
+
+        if (response == JOptionPane.YES_OPTION) {
+            System.exit(0);
         }
     }
 
