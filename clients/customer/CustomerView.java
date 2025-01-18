@@ -8,6 +8,7 @@ import middle.MiddleFactory;
 import middle.StockReader;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,10 @@ public class CustomerView implements Observer {
 
         Color consistentGrey = new Color(102, 102, 102); // Updated grey colour to match CustomerClient screen
         Color buttonGrey = new Color(96, 96, 96); // Button grey theme
+        Color textGrey = new Color(69, 69, 69); // Grey background for text components
+
+        // Remove the blue hover effect by setting a custom border for text inputs
+        Border noFocusBorder = BorderFactory.createLineBorder(buttonGrey); // Border same as button grey
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -53,9 +58,18 @@ public class CustomerView implements Observer {
         topPanel.add(searchButton);
         topPanel.setBackground(consistentGrey); // Set top panel background to grey
 
+        // Style the search bar (JTextField)
+        searchBar.setBackground(textGrey);
+        searchBar.setForeground(Color.WHITE);
+        searchBar.setCaretColor(Color.WHITE); // Ensure the caret is visible
+        searchBar.setBorder(noFocusBorder); // Remove default blue hover effect
+
         // Centre section with product list
         productModel = new DefaultListModel<>();
         productList = new JList<>(productModel);
+        productList.setBackground(textGrey); // Set background for the product list
+        productList.setForeground(Color.WHITE); // Ensure text is visible
+        productList.setBorder(noFocusBorder); // Remove default blue hover effect
         productList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
