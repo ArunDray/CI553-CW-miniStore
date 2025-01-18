@@ -130,6 +130,9 @@ public class CustomerView implements Observer {
             }
         });
 
+        // Added action listener to the check button
+        checkButton.addActionListener(e -> handleCheckAction());
+
         frame.getContentPane().setBackground(consistentGrey); // Ensure the entire frame background is grey
         frame.setVisible(true); // Displaying the frame
     }
@@ -196,6 +199,15 @@ public class CustomerView implements Observer {
 
     private void showOutOfStockNotification(String query) {
         JOptionPane.showMessageDialog(null, "The product code '" + query + "' is out of stock or does not exist.", "Out of Stock Notification", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void handleCheckAction() {
+        // Check if a product is selected
+        if (productList.getSelectedIndex() != -1) {
+            JOptionPane.showMessageDialog(null, "Product is in stock.", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please first select a product.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     @Override
