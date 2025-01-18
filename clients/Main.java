@@ -28,17 +28,35 @@ import java.awt.*;
 public class Main {
 
     public static void main(String args[]) {
+        // Set the global font to Segoe UI
+        setUIFont(new javax.swing.plaf.FontUIResource("Segoe UI", Font.PLAIN, 14));
+
         // Set the hover effect for buttons to a dark grey
         UIManager.put("Button.select", new Color(105, 105, 105)); // Dark grey colour for hover
 
         // Set the button outline to dark grey
         UIManager.put("Button.border", BorderFactory.createLineBorder(new Color(96, 96, 96)));
 
-        // Set the background color for text fields (including search bars) to dark grey
+        // Set the background colour for text fields (including search bars) to dark grey
         UIManager.put("TextField.background", new Color(96, 96, 96));
         UIManager.put("TextField.foreground", Color.WHITE); // Ensure text is visible on dark background
 
         new Main().begin();
+    }
+
+    /**
+     * Applies a global font to all Swing components.
+     * @param f The font resource to apply globally.
+     */
+    public static void setUIFont(javax.swing.plaf.FontUIResource f) {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof javax.swing.plaf.FontUIResource) {
+                UIManager.put(key, f);
+            }
+        }
     }
 
     /**
@@ -60,15 +78,15 @@ public class Main {
         JFrame window = new JFrame();
         window.setTitle("Customer Client MVC");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension pos = PosOnScrn.getPos(); 
+        Dimension pos = PosOnScrn.getPos(); // 
 
         CustomerModel model = new CustomerModel(mlf);
-        CustomerView view = new CustomerView(window, mlf, pos.width, pos.height); 
+        CustomerView view = new CustomerView(window, mlf, pos.width, pos.height); // Updated to match new constructor
         CustomerController controller = new CustomerController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       
-        window.setVisible(true);       
+        model.addObserver(view);       // Add observer to the model
+        window.setVisible(true);       // Start GUI
     }
 
     /**
@@ -86,9 +104,9 @@ public class Main {
         CashierController controller = new CashierController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       
-        window.setVisible(true);       
-        model.askForUpdate();          
+        model.addObserver(view);       // Add observer to the model
+        window.setVisible(true);       // Make window visible
+        model.askForUpdate();          // Initial display
     }
 
     /**
@@ -106,8 +124,8 @@ public class Main {
         PackingController controller = new PackingController(model, view);
         view.setController(controller);
 
-        model.addObserver(view);       
-        window.setVisible(true);       
+        model.addObserver(view);       // Add observer to the model
+        window.setVisible(true);       // Make window visible
     }
 
     /**
@@ -123,9 +141,9 @@ public class Main {
         BackDoorModel model = new BackDoorModel(mlf);
         BackDoorView view = new BackDoorView(window, mlf, pos.width, pos.height);
         BackDoorController controller = new BackDoorController(model, view);
-        view.setController(controller); 
+        view.setController(controller);
 
-        model.addObserver(view); 
-        window.setVisible(true); 
+        model.addObserver(view);       // Add observer to the model
+        window.setVisible(true);       // Make window visible
     }
 }

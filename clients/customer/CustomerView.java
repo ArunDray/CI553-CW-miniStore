@@ -1,8 +1,11 @@
 package clients.customer;
 
 import catalogue.Basket;
+import catalogue.BetterBasket;
+import clients.Picture;
 import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
+import middle.StockReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +20,10 @@ import java.util.Observer;
 
 public class CustomerView implements Observer {
 
-    private static final int H = 400;       // Updated height of window pixels
-    private static final int W = 600;       // Updated width of window pixels
+    private static final int H = 300; // Updated height of window pixels (same as other screens)
+    private static final int W = 400; // Updated width of window pixels (same as other screens)
 
-    private final JLabel pageTitle = new JLabel("Customer View:");
+    private final JLabel pageTitle = new JLabel("");
     private final JTextField searchBar = new JTextField(20); // New search bar
     private final JButton searchButton = new JButton("Search"); // New search button
     private final JLabel feedbackLabel = new JLabel(); // Feedback label
@@ -32,14 +35,15 @@ public class CustomerView implements Observer {
     private DefaultListModel<String> productModel; // Data model for the list
 
     public CustomerView(JFrame frame, MiddleFactory mf, int width, int height) {
-        frame.setSize(width > 0 ? width : W, height > 0 ? height : H); // Use provided dimensions or defaults
+        frame.setSize(W, H); // Set size to match other screens
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Color consistentGrey = new Color(102, 102, 102); // Updated grey colour to match CustomerClient screen
         Color buttonGrey = new Color(96, 96, 96); // Button grey theme
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(consistentGrey); // Set the main background to grey
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(consistentGrey); // Set the main background to grey
 
         // Top section with title and search
         JPanel topPanel = new JPanel(new FlowLayout());
@@ -84,12 +88,12 @@ public class CustomerView implements Observer {
         searchButton.setBackground(buttonGrey);
         searchButton.setForeground(Color.WHITE);
 
-        // Add panels to the main panel
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        // Added panels to the frame
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(bottomPanel, BorderLayout.SOUTH);
 
-        frame.add(mainPanel);
+        frame.add(panel);
 
         // Added listeners
         searchButton.addActionListener(e -> filterProducts());
@@ -189,7 +193,7 @@ public class CustomerView implements Observer {
     }
 
     public CustomerView() {
-        this(new JFrame(), new LocalMiddleFactory(), 600, 400);
+        this(new JFrame(), new LocalMiddleFactory(), W, H); // Consistent height so CustomerView will Align with other GUIs
     }
 
     public void setController(CustomerController controller) {
