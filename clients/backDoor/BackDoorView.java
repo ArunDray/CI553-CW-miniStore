@@ -23,9 +23,9 @@ public class BackDoorView implements Observer
 
   private final JLabel      pageTitle  = new JLabel();
   private final JLabel      theAction  = new JLabel();
-  private final JTextField  theInput   = new JTextField();
-  private final JTextField  theInputNo = new JTextField();
-  private final JTextArea   theOutput  = new JTextArea();
+  private final JTextField  theInput   = new JTextField() {{ setBackground(Color.DARK_GRAY); setForeground(Color.WHITE); }};
+  private final JTextField  theInputNo = new JTextField() {{ setBackground(Color.DARK_GRAY); setForeground(Color.WHITE); }};
+  private final JTextArea   theOutput  = new JTextArea() {{ setBackground(Color.DARK_GRAY); setForeground(Color.WHITE); }};
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtClear = new JButton( CLEAR );
   private final JButton     theBtRStock = new JButton( RESTOCK );
