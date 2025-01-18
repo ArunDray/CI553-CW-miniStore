@@ -46,6 +46,11 @@ public class PackingView implements Observer {
         rootWindow.setLocation(x, y);
         cp.setBackground(new Color(102, 102, 102));    // Use dark grey background
 
+        if (rpc instanceof JFrame) { // Check JFrame to set the title
+            JFrame frame = (JFrame) rpc;
+            frame.setTitle("Packing Client");  // Set the title of the GUI window
+        }
+
         Font f = new Font("Segoe UI", Font.PLAIN, 14);  // Consistent font
 
         theAction.setBounds(20, 20, 360, 20);           // Action feedback label
@@ -75,7 +80,7 @@ public class PackingView implements Observer {
     private void showCompletionPopup() {
         int response = JOptionPane.showConfirmDialog(
                 null,
-                "Order Complete\nWould you like to exit the Catalogue?",
+                "Order Complete\nWould you like to exit the Catalogue or continue browsing more products?",
                 "Order Packed",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE
@@ -84,7 +89,7 @@ public class PackingView implements Observer {
         if (response == JOptionPane.YES_OPTION) {
             System.exit(0); // Exit the application
         }
-        // If "No" is selected, the dialog is dismissed, and the application continues running
+        // If "No" is selected, the message is ignored and the application continues running normally
     }
 
     public void setController(PackingController c) {
